@@ -1,15 +1,16 @@
 var React = require('react');
 var ListItem = require('./ListItem.jsx');
 
-var ingredients = [{"id":1,"text":"ham"}, {"id":2,"text":"cheese"},{"id":3,"text":"potatoes"}];
-
 var List = React.createClass({
     render: function() {
-        var listItems = ingredients.map(function(item) {
-            return <ListItem key={item.id} ingredient={item.text} />;
-        });
+        //React wants lists that can be uniquely identified. This is why we set a unique key
+        var createItem = function(text, index) {
+            return <ListItem key={index + text} text={text} />;
+        };
 
-        return (<ul>{listItems}</ul>);
+        //Goes through each item in the items dataset and creates a ListItem component
+        //for each item
+        return (<ul>{this.props.items.map(createItem)}</ul>);
     }
 });
 
